@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "116125594397",
+    "project_id": "rollradar",
+    "storage_bucket": "rollradar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116125594397:android:a1d751fcba7a5c9105e7f4",
+        "android_client_info": {
+          "package_name": "com.example.god_roll_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApJ_0CXuwX5Lflst-tiv0Ell1sPkVXK4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
