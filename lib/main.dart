@@ -2,17 +2,19 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:god_roll_app/providers/destinyperkprovider.dart';
+import 'package:god_roll_app/providers/destinyweaponprovider.dart';
+import 'package:god_roll_app/providers/userprovider.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
-import '../providers/weaponsprovider.dart';
 import '../providers/profileprovider.dart';
-import '../providers/weapondetailsprovider.dart';
-import '../providers/godrollsprovider.dart';
-import '../providers/perkdetailsprovider.dart';
-import '../providers/characterdetailsprovider.dart';
-import '../providers/bungieidprovider.dart';
-import '../pages/OAuth.dart';
+import 'providers/destinycharacterprovider.dart';
+import 'views/pages/OAuth.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
 // Define a top-level named handler outside of your class
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -25,6 +27,18 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  print("Attempting to load .env file...");
+
+  try {
+    await dotenv.load(fileName: ".env");
+    print(".env file loaded successfully.");
+  } catch (e) {
+    print("Failed to load .env file: $e");
+  }
+
+  final appDocumentDirectory = await getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDirectory.path);
 
   MobileAds.instance.initialize();
 
@@ -43,16 +57,44 @@ void main() async {
     print("Initial message: ${initialMessage.notification?.title}");
   }
 
+  const FlutterSecureStorage secureStorage = FlutterSecureStorage();
+  String? storedApiKey = await secureStorage.read(key: 'apiKey');
+  if (storedApiKey == null) {
+    String apiKey = dotenv.env['API_KEY'] ?? '';
+    if (apiKey.isNotEmpty) {
+      await secureStorage.write(key: 'apiKey', value: apiKey);
+    }
+  }
+  String? storedOauthClientId = await secureStorage.read(key: 'oauthClientId');
+  if (storedOauthClientId == null) {
+    String oauthClientId = dotenv.env['OAUTH_CLIENT_ID'] ?? '';
+    if (oauthClientId.isNotEmpty) {
+      await secureStorage.write(key: 'oauthClientId', value: oauthClientId);
+    }
+  }
+  String? storedOauthClientSecret =
+      await secureStorage.read(key: 'oauthClientSecret');
+  if (storedOauthClientSecret == null) {
+    String oauthClientSecret = dotenv.env['OAUTH_CLIENT_SECRET'] ?? '';
+    if (oauthClientSecret.isNotEmpty) {
+      await secureStorage.write(
+          key: 'oauthClientSecret', value: oauthClientSecret);
+    }
+  }
+
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => WeaponsProvider()),
-        ChangeNotifierProvider(create: (context) => ProfileProvider()),
-        ChangeNotifierProvider(create: (context) => WeaponDetailsProvider()),
-        ChangeNotifierProvider(create: (context) => GodRollsProvider()),
-        ChangeNotifierProvider(create: (context) => PerkDetailsProvider()),
-        ChangeNotifierProvider(create: (context) => CharacterDetailsProvider()),
-        ChangeNotifierProvider(create: (context) => BungieIdProvider()),
+        ChangeNotifierProvider<DestinyWeaponProvider>(
+            create: (context) => DestinyWeaponProvider()),
+        ChangeNotifierProvider<DestinyProfileProvider>(
+            create: (context) => DestinyProfileProvider()),
+        ChangeNotifierProvider<DestinyCharacterProvider>(
+            create: (context) => DestinyCharacterProvider()),
+        ChangeNotifierProvider<DestinyPerkProvider>(
+            create: (context) => DestinyPerkProvider()),
+        ChangeNotifierProvider<UserProvider>(
+            create: (context) => UserProvider()),
       ],
       child: const MainApp(),
     ),

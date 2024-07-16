@@ -1,0 +1,20 @@
+Weapon perk category hash = 3708671066
+
+In Manifest-
+
+    DestinyInvItemDef "sockets"
+        "socketEntries" contasins all ths slots for figureing out all random rolls
+            "socketTypeHash" represents the type of perk it will be eg. Barrel or Magazine from DestinySocketTypeDefinition
+                this will have a "socketCategoryHash" which can be looked up in DestinySocketCategoryDefintion
+                    the hash for this will repsetent if its a weapoin Perk instrinsic etc. This can be retreieved from the enums 
+            "reusablePLugSetHash" represenst the plug set for that slot but is not random so will always be the same perk or trait etc.
+            "randomziedPlugSetHash" represnsts the plug set hash for that slot to look up in DestinyPlugSetDefinition
+        "instrinsicSockets" will contain a "plugItemHash" which will be the item definition for the instric trait
+        "socketCategories" is used for finding which what catregory of socket is at what index in the "socketEntries"
+            each entry in this list will have a socketCategoryHash to look up in the enums
+            "socketIndexes" list will have all the int indexes for the sockets of that category
+
+    DestinyPlugSetDef
+        "reusablePlugItems" is a lsit of all the plugs that can be in that plug set
+            "plugItemHash" is the reference to the item DestinyInvItemDef
+
