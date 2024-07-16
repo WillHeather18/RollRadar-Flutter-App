@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
+import 'package:god_roll_app/providers/userprovider.dart';
 import 'package:god_roll_app/views/pages/loading_page/loading_page.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,6 +11,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   Future<void> authenticateWithBungie() async {
+    UserProvider userProvider = Provider.of(context, listen: false);
     const String authUrl = 'https://home-jwrvpx7udq-uc.a.run.app';
 
     print('Starting authentication process...');
@@ -25,24 +28,28 @@ class _LoginPageState extends State<LoginPage> {
       String token =
           uri.queryParameters['access_token']?.replaceAll(' ', '+') ??
               'No token';
-      String bungie_id = uri.queryParameters['bungie_id'] ?? 'No membership ID';
-      String membership_type =
+      String bungieId = uri.queryParameters['bungie_id'] ?? 'No membership ID';
+      String membershipType =
           uri.queryParameters['membership_type'] ?? 'No membership type';
-      String destiny_membership_id =
+      String destinyMembershipId =
           uri.queryParameters['destiny_membership_id'] ??
               'No destiny membership ID';
 
-      print('Parsed token from response: $token');
-      print('Authentication successful with bungie_id: $bungie_id');
+      userProvider.setBungieId(bungieId);
+      userProvider.setMembershipType(membershipType);
+      userProvider.setMembershipType(destinyMembershipId);
 
-      if (bungie_id != 'No membership ID') {
+      print('Parsed token from response: $token');
+      print('Authentication successful with bungie_id: $bungieId');
+
+      if (bungieId != 'No membership ID') {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => Destiny2LoadingScreen(
-              bungieId: bungie_id,
-              membershipType: membership_type,
-              destinyMembershipId: destiny_membership_id,
+              bungieId: bungieId,
+              membershipType: membershipType,
+              destinyMembershipId: destinyMembershipId,
               accessToken: token,
             ),
           ),

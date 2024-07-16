@@ -154,7 +154,7 @@ class _WeaponRadarState extends State<WeaponRadar>
             ),
         ],
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
     );
   }
 

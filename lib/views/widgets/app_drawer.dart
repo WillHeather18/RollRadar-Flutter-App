@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:god_roll_app/providers/userprovider.dart';
 import 'package:god_roll_app/views/pages/inventory/inventory_page.dart';
+import 'package:god_roll_app/views/pages/settings_page/settings.dart';
 import 'package:god_roll_app/views/pages/weapon_radar/weapon_radar_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,7 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
     final user = userProvider.user;
-    var bungieId = userProvider.bungieId;
+    var bungieId = userProvider.bungieID;
 
     return Drawer(
       backgroundColor: Colors.white,
@@ -21,7 +22,7 @@ class AppDrawer extends StatelessWidget {
         children: <Widget>[
           UserAccountsDrawerHeader(
             accountName: Text(user.displayName ?? 'User Name'),
-            accountEmail: Text('Bungie ID: ${bungieId ?? 'Bungie ID'}'),
+            accountEmail: Text('Bungie ID: $bungieId'),
             currentAccountPicture: CircleAvatar(
               backgroundImage: user.profilePicturePath != "Default Icon URL"
                   ? Image.network(
@@ -73,7 +74,7 @@ class AppDrawer extends StatelessWidget {
                 Text('Settings', style: GoogleFonts.lato(color: Colors.black)),
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Inventory()));
+                  MaterialPageRoute(builder: (context) => const Settings()));
             },
           ),
           Divider(color: Colors.grey[800]),
