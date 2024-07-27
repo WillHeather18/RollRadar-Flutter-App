@@ -40,14 +40,6 @@ class _PerksPanelState extends State<PerksPanel> {
 
     final weaponSocketHashes = widget.weapon.sockets;
     final allPerkOptions = destinyPerkProvider.getAllWeaponPerks(widget.weapon);
-    if (allPerkOptions != null) {
-      for (var i = 0; i < allPerkOptions[0].length; i++) {
-        print(
-            "allPerkOptions test: ${allPerkOptions[0][i].displayProperties?.name}");
-      }
-    } else {
-      print("allPerkOptions is null");
-    }
     var instrinicPerk =
         destinyPerkProvider.getPerk(weaponSocketHashes![0].plugHash.toString());
 
@@ -185,7 +177,6 @@ class _PerksPanelState extends State<PerksPanel> {
                       activePerk!.displayProperties!.name!,
                       index);
                 }
-                print("isActiveGodRoll: $isActiveGodRoll");
 
                 final decodedDescription = activePerk
                     ?.displayProperties?.description

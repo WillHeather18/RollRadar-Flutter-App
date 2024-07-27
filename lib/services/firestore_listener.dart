@@ -20,8 +20,6 @@ class FirestoreListener {
         print("Total instance ids retrieved: ${instanceIds.length}");
         instanceIds.sort((a, b) => b.compareTo(a)); // Sort in descending order
         var topTwentyInstanceIds = instanceIds.toList(); // Take top 20
-        print(
-            "Number of instance ids after taking top 20: ${topTwentyInstanceIds.length}");
         onWeaponsUpdated(topTwentyInstanceIds);
       }
     });

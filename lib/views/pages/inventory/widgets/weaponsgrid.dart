@@ -54,8 +54,6 @@ class _WeaponWidgetState extends State<WeaponWidget> {
         Provider.of<DestinyWeaponProvider>(context, listen: false);
 
     List<DestinyItemComponent> allWeapons = [];
-    print(
-        "widget.characterIdNotifier.value: ${widget.characterIdNotifier.value}");
     if (widget.characterIdNotifier.value == 0) {
       allWeapons = profile.profileInventory!.data!.items!;
     } else {
@@ -164,8 +162,6 @@ class _WeaponWidgetState extends State<WeaponWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print("grid id: ${widget.characterIdNotifier.value}");
-
     organizeWeapons();
 
     return RefreshIndicator(

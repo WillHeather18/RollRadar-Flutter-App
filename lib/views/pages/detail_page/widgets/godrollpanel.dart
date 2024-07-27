@@ -187,12 +187,6 @@ class _GodRollPanelState extends State<GodRollPanel>
                                         .toString();
                                     final perkDetail =
                                         destinyPerkProvider.getPerk(socketHash);
-
-                                    if (i == 3) {
-                                      print("Socket Hash: $socketHash");
-                                      print(
-                                          "Main Perk Hash: ${mainPerkHashes[i]}");
-                                    }
                                     var theoryCraft =
                                         widget.godroll['theory_craft'];
                                     var category;

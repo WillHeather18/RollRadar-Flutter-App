@@ -3804,3 +3804,19 @@ extension PlugCategoryHashesExtension on PlugCategoryHashes {
     }
   }
 }
+
+enum DestinyItemState {
+  none(0),
+  locked(1 << 0), // 1st bit
+  tracked(1 << 1), // 2nd bit
+  masterwork(1 << 2), // 4th bit
+  crafted(1 << 3), // 8th bit
+  highlightedObjective(1 << 4); // 16th bit
+
+  final int value;
+  const DestinyItemState(this.value);
+}
+
+bool isBitSet(int state, DestinyItemState bit) {
+  return (state & bit.value) != 0;
+}

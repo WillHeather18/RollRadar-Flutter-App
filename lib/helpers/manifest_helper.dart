@@ -48,8 +48,6 @@ class ManifestHelper {
         manifestJsonUrls!['en']!['DestinyInventoryItemDefinition'];
     final plugSetUrl = manifestJsonUrls['en']!['DestinyPlugSetDefinition'];
 
-    print('manifestJsonUrls: $manifestJsonUrls');
-
     print('Downloading manifest JSON from $inventoryItemUrl');
 
     final inventoryItemJson =

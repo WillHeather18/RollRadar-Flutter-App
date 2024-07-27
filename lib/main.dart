@@ -2,11 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:god_roll_app/providers/destinyperkprovider.dart';
 import 'package:god_roll_app/providers/destinyweaponprovider.dart';
 import 'package:god_roll_app/providers/userprovider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 import '../providers/profileprovider.dart';
@@ -81,7 +83,7 @@ void main() async {
           key: 'oauthClientSecret', value: oauthClientSecret);
     }
   }
-
+  //debugPaintSizeEnabled = true;
   runApp(
     MultiProvider(
       providers: [
@@ -113,6 +115,24 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     // Use _isLoading to determine what to display
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'NeueHaasDisplay',
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(fontWeight: FontWeight.w500),
+          bodyMedium: TextStyle(fontWeight: FontWeight.w400),
+          displayLarge: TextStyle(fontWeight: FontWeight.w300),
+          displayMedium: TextStyle(fontWeight: FontWeight.w300),
+          displaySmall: TextStyle(fontWeight: FontWeight.w300),
+          headlineMedium: TextStyle(fontWeight: FontWeight.w300),
+          headlineSmall: TextStyle(fontWeight: FontWeight.w300),
+          titleLarge: TextStyle(fontWeight: FontWeight.w300),
+          titleMedium: TextStyle(fontWeight: FontWeight.w300),
+          titleSmall: TextStyle(fontWeight: FontWeight.w300),
+          bodySmall: TextStyle(fontWeight: FontWeight.w300),
+          labelLarge: TextStyle(fontWeight: FontWeight.w300),
+          labelSmall: TextStyle(fontWeight: FontWeight.w300),
+        ),
+      ),
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       home: LoginPage(), // Display main content after loading

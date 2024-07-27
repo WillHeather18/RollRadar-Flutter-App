@@ -38,11 +38,17 @@ class DestinyPerkProvider with ChangeNotifier {
       for (var i = 1; i < 5; i++) {
         List<DestinyInventoryItemDefinition> slotPerks = [];
         final perkIndex = perkOptions?[i.toString()];
-        for (var perk in perkIndex!) {
-          final perkDef = getPerk(perk.plugItemHash.toString());
-          if (perkDef != null) {
-            slotPerks.add(perkDef);
+        if (perkIndex != null) {
+          for (var perk in perkIndex!) {
+            final perkDef = getPerk(perk.plugItemHash.toString());
+            if (perkDef != null) {
+              slotPerks.add(perkDef);
+            }
           }
+        } else {
+          var perkSocketHash = weapon.sockets?[i].plugHash.toString();
+          final perkDef = getPerk(perkSocketHash!);
+          slotPerks.add(perkDef!);
         }
         allPerks.add(slotPerks);
       }
@@ -54,7 +60,9 @@ class DestinyPerkProvider with ChangeNotifier {
           continue;
         }
         final perkDef = getPerk(perkSocketHash);
-        slotPerks.add(perkDef!);
+        if (perkDef != null) {
+          slotPerks.add(perkDef);
+        }
         allPerks.add(slotPerks);
       }
     }

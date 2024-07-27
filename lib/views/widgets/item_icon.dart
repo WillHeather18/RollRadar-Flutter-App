@@ -1,5 +1,7 @@
 import 'package:bungie_api/destiny2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:god_roll_app/models/enums.dart';
 import 'package:god_roll_app/models/full_item.dart';
 import 'package:god_roll_app/providers/profileprovider.dart';
 import 'package:god_roll_app/tools/lookup.dart';
@@ -27,8 +29,16 @@ class WeaponIcon extends StatelessWidget {
         weaponInstance?.manifestData?.iconWatermark;
     final damageType = weaponManifest?.defaultDamageType ??
         weaponInstance?.manifestData?.defaultDamageType;
-    bool isMasterwork =
-        (weaponInstance?.item.state!.value ?? 0) & (1 << 2) != 0;
+    int stateValue = weaponInstance?.item.state!.value ?? 0;
+
+    bool isMasterwork = isBitSet(stateValue, DestinyItemState.masterwork);
+    bool isCrafted = isBitSet(stateValue, DestinyItemState.crafted);
+    bool isHighlightedObjective =
+        isBitSet(stateValue, DestinyItemState.highlightedObjective);
+
+    if (isCrafted) {
+      print("Is Crafted = $isCrafted");
+    }
     final primaryStatValue = weaponInstance?.instance.primaryStat?.value;
     String damageTypeIcon = getDamageIcon(damageType!);
 
@@ -101,6 +111,15 @@ class WeaponIcon extends StatelessWidget {
                     );
                   }
                 },
+              ),
+            if (isCrafted)
+              Positioned(
+                bottom: 2,
+                left: 4,
+                child: Container(
+                    height: 15,
+                    width: 15,
+                    child: SvgPicture.asset('assets/icons/crafted.svg')),
               ),
             Positioned(
               bottom: 0,

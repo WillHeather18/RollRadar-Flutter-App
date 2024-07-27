@@ -99,10 +99,8 @@ class _WeaponRadarState extends State<WeaponRadar>
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: const Color(0xFF0f0f23),
-        title: Text(
-          'Weapon Radar',
-          style: GoogleFonts.orbitron(color: Colors.white, fontSize: 20),
-        ),
+        title: const Text('Weapon Radar',
+            style: TextStyle(fontSize: 24, color: Colors.white)),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
@@ -120,7 +118,7 @@ class _WeaponRadarState extends State<WeaponRadar>
                   'https://user-images.githubusercontent.com/58719230/218909229-67867fec-6f4a-43fb-bfc3-33d6bc42ae2e.png'),
           Center(
             child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.95,
+              width: MediaQuery.of(context).size.width * 0.92,
               child: ListView.builder(
                 itemCount: latestWeaponDetails.length,
                 padding: EdgeInsets.only(bottom: BannerAdWidget.bannerAdHeight),

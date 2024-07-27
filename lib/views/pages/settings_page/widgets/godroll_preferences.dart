@@ -24,8 +24,6 @@ class _GodRollPreferencesState extends State<GodRollPreferences> {
     };
 
     try {
-      // Assuming you have a user ID to use as a document reference.
-      // This could be from Firebase Auth or another source.
       await FirebaseFirestore.instance
           .collection('UserPreferences')
           .doc(userId)
